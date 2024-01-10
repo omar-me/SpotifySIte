@@ -8,7 +8,6 @@ const nextConfig = {
         },
       ],
     },
-    matcher: '/site/:path*',
   }
 
 module.exports = nextConfig

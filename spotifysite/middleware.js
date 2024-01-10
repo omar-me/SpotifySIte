@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 export async function middleware(req) {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     const {pathname} = req.nextUrl;
-
     if (pathname.startsWith("/api/auth" || token)) {
         console.log("next response next");
         return NextResponse.next();
@@ -12,6 +11,6 @@ export async function middleware(req) {
 
     if(!token && pathname.startsWith("/site")){
         console.log("redirecting to signin")
-        NextResponse.redirect(new URL ("/api/auth/signin", req.url));
+        return NextResponse.redirect(new URL ("/api/auth/signin", req.url));
     }
 }
