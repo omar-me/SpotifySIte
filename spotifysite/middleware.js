@@ -6,10 +6,12 @@ export async function middleware(req) {
     const {pathname} = req.nextUrl;
 
     if (pathname.startsWith("/api/auth" || token)) {
+        console.log
         return NextResponse.next();
     }
 
     if(!token && pathname.startsWith("/site")){
+        console.log("redirecting to signin")
         NextResponse.redirect(new URL ("/api/auth/signin", req.url));
     }
 }
