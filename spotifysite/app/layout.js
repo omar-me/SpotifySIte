@@ -9,7 +9,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <title>Spotify Test</title>
+        <title>Somafy</title>
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body style={{ margin: 0 }}>

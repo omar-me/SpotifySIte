@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en" style={style}>
             <head>
-                <title>Spotify Test</title>
+                <title>Somafy</title>
                 <link rel="icon" href="/favicon.ico" />
             </head>
             <body style={style}>
