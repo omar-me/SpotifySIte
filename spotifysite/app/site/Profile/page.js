@@ -26,9 +26,12 @@ export default async function App() {
   if (session && accessToken) {
     result = await fetch("https://api.spotify.com/v1/me", {
       method: "GET", headers: { Authorization: `Bearer ${accessToken}` }
+    }).then(function(data){
+      return data.json();
+    }, function(error){
+      console.log(error);
+      return null;
     });
-    result = await result.json();
-    console.log(result);
   }
   return (
     <Profile profile={result} />
