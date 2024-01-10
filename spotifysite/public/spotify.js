@@ -65,7 +65,6 @@ export async function getTopAlbums(accessToken, limit = 10, offset = 0) {
             }
         }
     }
-    //print out the top 10 albums
     var sortedResult = [];
     for (var key in resultObject) {
         sortedResult.push(resultObject[key]);
