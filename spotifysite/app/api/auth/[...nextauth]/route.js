@@ -3,7 +3,6 @@ import NextAuth from "next-auth";
 import SpotifyProvider from "next-auth/providers/spotify";
 import axios from "axios";
 async function refreshAccessToken(token){
-  console.log("refreshAccessToken")
     try {
       // spotifyApi.setAccessToken(token.accessToken)
       // spotifyApi.setRefreshToken(token.refreshToken)
@@ -19,7 +18,6 @@ async function refreshAccessToken(token){
       const basicAuth = Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString(
         'base64'
       )
-      console.log("in refreshAccessToken")
       const { data } = await axios.post(
         'https://accounts.spotify.com/api/token',
         {
@@ -34,15 +32,12 @@ async function refreshAccessToken(token){
           cache: 'no-store',
         }
       )
-      console.log("data: ")
-      console.log(data)
       return {
         ...token,
         accessToken: data.access_token,
         accessTokenExpires: Date.now() + data.expires_in * 1000,
       }
     } catch (error) {
-      console.log(error)
       return {
         ...token,
         error: 'RefreshAccessTokenError',

@@ -34,14 +34,13 @@ const spotifyApi = new SpotifyWebApi({
 
 export async function getTopSongs(accessToken, limit = 10, offset = 0, timeRange) {
     spotifyApi.setAccessToken(accessToken);
-    const topSongs = await spotifyApi.getMyTopTracks({time_range: String(timeRange), limit: 10, offset: 0 });
+    const topSongs = await spotifyApi.getMyTopTracks({time_range: timeRange, limit: limit, offset: offset });
     return topSongs.body.items;
 }
 
-export async function getTopAlbums(accessToken, limit = 10, offset = 0) {
+export async function getTopAlbums(accessToken, limit = 50, offset = 0, timeRange) {
     spotifyApi.setAccessToken(accessToken);
-    const result = (await spotifyApi.getMyTopTracks({time_range: "medium_term", limit: 50, offset: 0 })).body.items;
-    // return topSongs.body.items;
+    const result = (await spotifyApi.getMyTopTracks({time_range: timeRange, limit: limit, offset: offset })).body.items;
 
     //print out the top 10 song's album name
     // console.log("result: ")
@@ -49,8 +48,6 @@ export async function getTopAlbums(accessToken, limit = 10, offset = 0) {
     //     console.log(result[i].album.name);
     // }   
 
-    //need to sort (result[i].album.name, result[i].album.images[0].url, result[i].artists[0].name)
-    //and count frequency of each album 
     var resultObject = {};
     for (var i = 0; i < result.length; i++) {
         if (result[i].album.name in resultObject) {
@@ -72,18 +69,19 @@ export async function getTopAlbums(accessToken, limit = 10, offset = 0) {
     sortedResult.sort(function (a, b) {
         return b.count - a.count;
     });
-    console.log(sortedResult[0]);
-    // console.log(sortedResult.length);
+
     var finalResult = [];
+
     for (var i = 0; i < 10; i++) {
         finalResult.push(sortedResult[i]);
     }
+
     return finalResult;
 }
 
-export async function getTopArtists(accessToken, limit = 10, offset = 0) {
+export async function getTopArtists(accessToken, limit = 10, offset = 0, timeRange) {
     spotifyApi.setAccessToken(accessToken);
-    const topSongs = await spotifyApi.getMyTopArtists({time_range: "medium_term", limit: 10, offset: 0 });
+    const topSongs = await spotifyApi.getMyTopArtists({time_range: timeRange, limit: limit, offset: offset});
     return topSongs.body.items;
 }
 
