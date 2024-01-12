@@ -32,9 +32,9 @@ const spotifyApi = new SpotifyWebApi({
     clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
 });
 
-export async function getTopSongs(accessToken, limit = 10, offset = 0) {
+export async function getTopSongs(accessToken, limit = 10, offset = 0, timeRange) {
     spotifyApi.setAccessToken(accessToken);
-    const topSongs = await spotifyApi.getMyTopTracks({time_range: "medium_term", limit: 10, offset: 0 });
+    const topSongs = await spotifyApi.getMyTopTracks({time_range: String(timeRange), limit: 10, offset: 0 });
     return topSongs.body.items;
 }
 
@@ -72,8 +72,8 @@ export async function getTopAlbums(accessToken, limit = 10, offset = 0) {
     sortedResult.sort(function (a, b) {
         return b.count - a.count;
     });
-    console.log(sortedResult);
-    console.log(sortedResult.length);
+    console.log(sortedResult[0]);
+    // console.log(sortedResult.length);
     var finalResult = [];
     for (var i = 0; i < 10; i++) {
         finalResult.push(sortedResult[i]);
