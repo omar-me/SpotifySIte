@@ -4,7 +4,7 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import { useEffect, useState } from "react";
 import spotifyApi from "../spotify";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
+import Dropdown from "./dropdown";
 const timeFrameOptions = ["4 Weeks", "6 Months", "All Time"];
 
 const dropDownSection = {
@@ -55,9 +55,9 @@ const eachSongStyle = {
 
 export default function Songs({ topSongs}) {
     const { data: session, status } = useSession()
-    const router = useRouter();
-    const pathname = usePathname();
-    const searchParams = useSearchParams();
+    // const router = useRouter();
+    // const pathname = usePathname();
+    // const searchParams = useSearchParams();
 
     useEffect(() => {
         if (session) {
@@ -68,36 +68,37 @@ export default function Songs({ topSongs}) {
         }
     }, [session]);
 
-    const onSelect = (event) => {
-        const current = new URLSearchParams(searchParams);
+    // const onSelect = (event) => {
+    //     const current = new URLSearchParams(searchParams);
     
-        const value = event.target.value.trim();
+    //     const value = event.target.value.trim();
     
-        if (!value) {
-          current.delete("timeRange");
-        } else {
-          current.set("timeRange", event.target.value);
-        }
+    //     if (!value) {
+    //       current.delete("timeRange");
+    //     } else {
+    //       current.set("timeRange", event.target.value);
+    //     }
     
-        const search = current.toString();
-        const query = search ? `?${search}` : "";
+    //     const search = current.toString();
+    //     const query = search ? `?${search}` : "";
     
-        router.push(`${pathname}${query}`);
-    };
+    //     router.push(`${pathname}${query}`);
+    // };
     
     return (
         <main style={mainStyle}>
             <h1 style={h1}>{"Your Top " + topSongs.length + " Songs"}</h1>
 
-            <section style={dropDownSection}>
+            {/* <section style={dropDownSection}>
                 <text>Time Range:</text>
                 <select onChange={onSelect}>
                     <option value="short_term">4 Weeks</option>
                     <option value="medium_term">6 Months</option>
                     <option value="long_term">Lifetime</option>
                 </select>
-            </section>
-
+            </section> */}
+            <Dropdown/>
+            
             <section style={songsContainer}>
                 {topSongs && topSongs.map((song, index) => (
                     <div key={index} style={eachSongStyle}>
