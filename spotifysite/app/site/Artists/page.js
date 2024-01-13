@@ -1,80 +1,41 @@
 
-import { getServerSession, NextAuthOptions } from "next-auth";
+import { getServerSession } from "next-auth";
 import { authOptions } from '../../api/auth/[...nextauth]/route.js'
 import Artists from "@/public/components/artists.js";
 import { getTopArtists } from "@/public/spotify.js";
 
-const mainStyle = {
-  display: "flex",
-  justifyContent: "center",
-  flexDirection: "column",
-}
-const h1 = {
-  display: "flex",
+export const dynamic = "force-dynamic";
 
-  justifyContent: "center",
-}
+export default async function App({ searchParams }) {
+	const session = await getServerSession(authOptions);
+	var accessToken = null;
+	var result = null;
+	const selectedTimeRange = searchParams?.timeRange ?? "short_term";
+	const timeRange = Array.isArray(selectedTimeRange) ? selectedTimeRange[0] : selectedTimeRange;
 
-const profileStyle = {
-  display: "flex",
-  // justifyContent: "center",
-  flexDirection: "column",
-  alignItems: "center",
-  margin: "10px"
-}
+	// if(session && 'error' in session && session['error'] == "RefreshAccessTokenError"){
+	//   console.log("token expired")
+	//   redirect('/api/auth/signin');
+	// }
 
-const h2 ={
-  display: "flex",
-  justifyContent: "center",
-  margin: "10px"
-}
+	if (session && 'accessToken' in session) {
+		accessToken = session['accessToken'];
+	}
 
-const image ={
-  width: "200px",
-  height: "200px",
-  margin: "10px"
-}
+	if (session && accessToken) {
+		var limit = 10;
+		var offset = 0;
+		result = await getTopArtists(accessToken, limit, offset, timeRange).then(
+			function (data) {
+				return data;
+			},
+			function (error) {
+				console.log(error)
+				return null;
+			});
+	}
 
-export default async function App() {
-    const session = await getServerSession(authOptions);
-    var accessToken = null;
-    var refreshToken = null;
-    var result = null; 
-  
-    console.log("SESSION: ");
-    console.log(session);
-    console.log("in spotifyprofile/page.js")
-  
-    // if(session && 'error' in session && session['error'] == "RefreshAccessTokenError"){
-    //   console.log("token expired")
-    //   redirect('/api/auth/signin');
-    // }
-  
-    if (session && 'accessToken' in session) {
-      accessToken = session['accessToken'];
-      refreshToken = session['refreshToken'];
-      console.log("session: ");
-      console.log(session);
-      console.log(session['accessToken']);
-    }
-  
-    if (session && accessToken) {
-      var limit = 10;
-      var offset = 0;
-
-      result = await getTopArtists(accessToken, limit, offset).then(function(data){
-        console.log("SONGSSSSSSSSSSS: ")
-        console.log(data)
-        return data;
-      },
-      function(error){
-        console.log(error)
-        return null; 
-      });
-      console.log(result);
-    }
-
-    return (
-      <Artists topArtists={result} />
-    )
+	return (
+		<Artists topArtists={result} />
+	)
 }

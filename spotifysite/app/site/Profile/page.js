@@ -7,10 +7,6 @@ export default async function App() {
   var accessToken = null;
   var result = null; 
 
-  console.log("SESSION: ");
-  console.log(session);
-  console.log("in spotifyprofile/page.js")
-
   // if(!session || (session && 'error' in session && session['error'] == "RefreshAccessTokenError")){
   //   console.log("token expired")
   //   redirect('/api/auth/signin');
@@ -18,9 +14,6 @@ export default async function App() {
 
   if (session && 'accessToken' in session) {
     accessToken = session['accessToken'];
-    console.log("session: ");
-    console.log(session);
-    console.log(session['accessToken']);
   }
 
   if (session && accessToken) {
