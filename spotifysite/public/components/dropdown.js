@@ -6,7 +6,21 @@ const dropDownSection = {
   display: "flex",
   justifyContent: "center",
   flexDirection: "column",
-  alignItems: "center"
+  alignItems: "center",
+  margin: "5px",
+}
+
+const textStyle = {
+  fontSize: "15px",
+  fontFamily: "Archivo Black",
+  fontWeight: "normal",
+  color: "white",
+}
+
+const dropdownStyle = {
+  fontFamily: "Archivo Black",
+  fontWeight: "lighter",
+  color: "black",
 }
 
 export default function Dropdown() {
@@ -32,11 +46,11 @@ export default function Dropdown() {
 
   return (
     <section style={dropDownSection}>
-      <text>Time Range:</text>
-      <select onChange={onSelect}>
-        <option value="short_term">4 Weeks</option>
-        <option value="medium_term">6 Months</option>
-        <option value="long_term">Lifetime</option>
+      <text style={textStyle}>Time Range:</text>
+      <select style={dropdownStyle} onChange={onSelect}>
+        <option style={dropdownStyle} value="short_term">4 Weeks</option>
+        <option style={dropdownStyle} value="medium_term">6 Months</option>
+        <option style={dropdownStyle} value="long_term">Lifetime</option>
       </select>
     </section>
   )

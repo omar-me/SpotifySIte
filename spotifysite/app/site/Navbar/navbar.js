@@ -6,7 +6,7 @@ export default async function Navbar() {
     const session = await getServerSession();
     const navStyle = {
         minWidth: "100%",
-        backgroundColor: "blue",
+        backgroundColor: "#3454D1",
         display: "flex",
         justifyContent: "flex-end",
     }
@@ -19,6 +19,10 @@ export default async function Navbar() {
         // width: "100px",
         margin: "10px 15px 10px 15px",
         color: "white",
+        textDecoration: "none",
+        fontFamily: "Archivo Black",
+        fontWeight: "normal",
+
     }
     const button = {}
     return (
@@ -36,6 +40,10 @@ export default async function Navbar() {
                 <Link href="/site/Artists" style={listStyle}>
                     <text>Artists</text>
                 </Link>
+                <Link href="/site/Boardcreator" style={listStyle}>
+                    <text>Board Creator</text>
+                </Link>
+                
             </ul>
         </nav>
     )

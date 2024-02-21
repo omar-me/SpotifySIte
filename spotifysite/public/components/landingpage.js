@@ -1,71 +1,106 @@
 'use client';
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 
-export default function LandingPage(){
-  const textContainer ={
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column",
-  }
+const buttonContainer = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  textDecoration: "none",
+};
 
-  const textStyles = {
-    color: "white",
-    fontSize: 19,
-    fontWeight: "bold",
-    fontFamily: "Helvetica",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column",
-  };
+const textContainer = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexDirection: "column",
+}
 
-  const containerStyle = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "100vh",
-  };
+const textStyles = {
+  color: "white",
+  fontSize: "50px",
+  fontWeight: "bold",
+  fontFamily: "Archivo Black",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexDirection: "column",
+};
 
-  const backgroundGif = {
-    backgroundImage: "url('https://c.animaapp.com/c4r1U57c/img/production-id-4508070--2160p--1.gif')",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column",
-  };
+const containerStyle = {
+  display: "grid",
+  height: "100vh",
+  display: "grid",
+  gridTemplateRows: "2fr 1fr 2fr",
+  alignItems: "center",
+};
 
-  const button = {
-    backgroundColor: "#1DB954",
-    color: "white",
-    fontSize: 20,
-    padding: 15,
-    borderRadius: 10,
-    border: "none",
-    cursor: "pointer",
-    margin: 20,
-    width: 200,
-    height: 50,
-  };
+const backgroundGif = {
+  backgroundImage: "url('https://c.animaapp.com/c4r1U57c/img/production-id-4508070--2160p--1.gif')",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  width: "100%",
+  height: "100%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  flexDirection: "column",
+};
+
+const button = {
+  backgroundColor: "#1DB954",
+  fontFamily: "Archivo Black",
+  fontWeight: "normal",
+  color: "white",
+  fontSize: 20,
+  padding: 15,
+  borderRadius: 10,
+  border: "none",
+  cursor: "pointer",
+  margin: 20,
+  width: 200,
+  height: 50,
+  textDecorations: "none",
+};
+const gradientSequence = [
+  "#ee7752",
+  "#e73c7e",
+  "#23a6d5",
+  "#23d5ab",
+  "#ee7752" // repeat the first color to loop the animation
+];
+
+export default function LandingPage() {
   return (
     <div>
       <main>
-        <div style={containerStyle}>
-          <div style={backgroundGif}>
+        {/* <div style={backgroundGif}> */}
+        <motion.div
+          style={{
+            height: "100vh",
+            background: "linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);"
+          }}
+          animate={{
+            background: gradientSequence
+          }}
+          transition={{
+            duration: 15,
+            ease: "linear",
+            loop: Infinity
+          }}
+        >
+          <div style={containerStyle}>
             <div style={textContainer}>
               <text style={textStyles}>Learn more about your listening habits!</text>
             </div>
-            <Link href="/site/Profile">
+            <Link style={buttonContainer} href="/site/Profile">
               <button style={button}>
-                Login with Spotify</button>
+                <text>Login with Spotify</text>
+              </button>
             </Link>
           </div>
-        </div>
+        </motion.div>
+        {/* </div> */}
       </main >
     </div >
   );
