@@ -5,16 +5,17 @@ import spotifyApi from "../spotify";
 import Dropdown from "./dropdown";
 
 const mainStyle = {
-    display: "flex",
-    justifyContent: "center",
-    flexDirection: "column",
-    backgroundColor: "black",
+    display: "grid",
+    gridTemplateRows: ".1fr .3fr 2fr",
+    backgroundColor: "#060914",
     minHeight: "100vh",
 }
 const h1 = {
     display: "flex",
     justifyContent: "center",
-    color: "white",
+    fontFamily: "Archivo Black",
+    fontWeight: "normal",
+    color: "white"
 }
 
 const container = {
@@ -32,14 +33,8 @@ const songsContainer = {
     // margin: "10px",
     // flexWrap: "wrap",
     display: "grid",
-    gridTemplateColumns: "repeat(6, min-contehent)",
-}
-
-const songInfo = {
-    display: "flex",
-    justifyContent: "center",
-    margin: "10px",
-    fontSize: "15px"
+    gridTemplateColumns: "repeat(6, min-content)",
+    gridTemplateRows: "repeat(6, min-content)",
 }
 
 const image = {

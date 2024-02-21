@@ -1,5 +1,5 @@
 import { SessionProvider } from 'next-auth/react'
-import { Providers } from '../providers.js'
+import { Providers } from '../providers'
 import Navbar from '@/app/site/Navbar/navbar.js'
 import "typeface-archivo-black"
 // export const metadata = {
@@ -16,19 +16,12 @@ export default function RootLayout({ children }) {
     }
 
     return (
-        <html lang="en" style={style}>
-            <head>
-                <title>Somafy</title>
-                <link rel="icon" href="/favicon.ico" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            </head>
-            <body style={style}>
-                <Providers>
-                    <Navbar />
-                        {children}
-                </Providers>
+        // <Providers>
+        <div>
+            <Navbar />
+            {children}
+        </div>
 
-            </body>
-        </html>
+        // </Providers>
     )
 }

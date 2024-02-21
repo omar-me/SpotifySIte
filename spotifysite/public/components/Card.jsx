@@ -43,7 +43,7 @@ const getUUID = () => { return crypto.randomUUID(); }
 
 export default function Card({ image, display }) {
     return (
-        <div key={getUUID} style={eachSongStyle}>
+        <div key={getUUID()} style={eachSongStyle}>
             <div style={imageContainer}>
                 <img style={imageStyle} src={image}></img>
             </div>

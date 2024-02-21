@@ -42,12 +42,9 @@ export async function getTopAlbums(accessToken, limit = 50, offset = 0, timeRang
     // if(!albumLimit){
     //     albumLimit = 10;
     // }
-    console.log(albumLimit)
     spotifyApi.setAccessToken(accessToken);
     const result = (await spotifyApi.getMyTopTracks({time_range: timeRange, limit: limit, offset: offset })).body.items;
 
-    console.log("result: ")
-    console.log(result.length)
     //print out the top 10 song's album name
     // console.log("result: ")
     // for (var i = 0; i < result.length; i++) {

@@ -1,6 +1,7 @@
+
 'use client';
 import { useSession, signIn, signOut } from "next-auth/react"
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import spotifyApi from "../spotify";
 import Dropdown from "./dropdown";
 import Card from "./Card";
@@ -29,7 +30,7 @@ const songsContainer = {
 
 const getUUID = () => { return crypto.randomUUID(); }
 
-export default function Songs({ topSongs }) {
+export default function Albums({ topAlbums }) {
     const { data: session, status } = useSession()
 
     useEffect(() => {
@@ -41,16 +42,15 @@ export default function Songs({ topSongs }) {
         }
     }, [session]);
 
-
+    // console.log("topAlbums: ")
+    // console.log(topAlbums)
     return (
         <main style={mainStyle}>
-            <h1 style={h1}>{"Your Top " + topSongs.length + " Songs"}</h1>
-
+            <h1 style={h1}>{"Your Top " + topAlbums.length + " Albums"}</h1>
             <Dropdown />
-
             <section style={songsContainer}>
-                {topSongs && topSongs.map((song) => (
-                    <Card key={getUUID} image={song.album.images[0].url} display={song.name} />
+                {topAlbums && topAlbums.map((album, index) => (
+                    <Card key={getUUID()} image={album.image} display={album.artist + " - " + album.album} />
                 ))}
             </section>
 

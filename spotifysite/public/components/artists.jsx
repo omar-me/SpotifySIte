@@ -50,7 +50,7 @@ export default function Artists({ topArtists }) {
 
             <section style={songsContainer}>
                 {topArtists && topArtists.map((artist) => (
-                    <Card key={getUUID} image={artist.images[0].url} display={artist.name} />
+                    <Card key={getUUID()} image={artist.images[0].url} display={artist.name} />
                 ))}
             </section>
 

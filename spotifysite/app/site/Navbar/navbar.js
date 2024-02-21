@@ -4,9 +4,18 @@ import { getServerSession, NextAuthOptions } from "next-auth";
 
 export default async function Navbar() {
     const session = await getServerSession();
-    const navStyle = {
+    const navDivStyle = {
         minWidth: "100%",
         backgroundColor: "#3454D1",
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+
+    }
+    const nav1 = {
+        display: "flex",
+        justifyContent: "flex-start",
+    }
+    const nav2 = {
         display: "flex",
         justifyContent: "flex-end",
     }
@@ -26,25 +35,35 @@ export default async function Navbar() {
     }
     const button = {}
     return (
-        <nav style={navStyle}>
-            <ul style={navList}>
-                <Link href="/site/Profile" style={listStyle}>
+        <div style={navDivStyle}>
+            <nav style={nav1}>
+                <ul style={navList}>
+                    <Link href="/" style={listStyle}>
+                        <text>Somafy</text>
+                    </Link>
+                </ul>
+            </nav>
+
+            <nav style={nav2}>
+                <ul style={navList}>
+                    {/* <Link href="/site/Profile" style={listStyle}>
                     <text>Profile</text>
-                </Link>
-                <Link href="/site/Songs" style={listStyle}>
-                    <text>Songs</text>
-                </Link>
-                <Link href="/site/Albums" style={listStyle}>
-                    <text>Albums</text>
-                </Link>
-                <Link href="/site/Artists" style={listStyle}>
-                    <text>Artists</text>
-                </Link>
-                <Link href="/site/Boardcreator" style={listStyle}>
-                    <text>Board Creator</text>
-                </Link>
-                
-            </ul>
-        </nav>
+                </Link> */}
+                    <Link href="/site/Songs" style={listStyle}>
+                        <text>Songs</text>
+                    </Link>
+                    <Link href="/site/Albums" style={listStyle}>
+                        <text>Albums</text>
+                    </Link>
+                    <Link href="/site/Artists" style={listStyle}>
+                        <text>Artists</text>
+                    </Link>
+                    <Link href="/site/Boardcreator" style={listStyle}>
+                        <text>Board Creator</text>
+                    </Link>
+
+                </ul>
+            </nav>
+        </div>
     )
 }
