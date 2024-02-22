@@ -73,7 +73,7 @@ export default function LandingPage() {
         <div style={background}>
           <div style={containerStyle}>
             <div style={textContainer}>
-              <text style={titleStyle}>Welcome to Spotify Stats!</text>
+              <text style={titleStyle}>Welcome to Somafy!</text>
               <text style={subStyle}>Learn more about your listening habits!</text>
             </div>
             <Link style={buttonContainer} href="/site/Songs">
