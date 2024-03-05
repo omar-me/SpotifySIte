@@ -10,7 +10,8 @@ const mainStyle = {
     display: "grid",
     gridTemplateRows: ".1fr .3fr 2fr",
     minHeight: "100vh",
-    backgroundColor: "#060914",
+    // backgroundColor: "#060914",
+    background: "linear-gradient(90deg, #060914, #132155, #060914)"
 }
 
 const h1 = {
@@ -50,7 +51,7 @@ export default function Albums({ topAlbums }) {
             <Dropdown />
             <section style={songsContainer}>
                 {topAlbums && topAlbums.map((album, index) => (
-                    <Card key={getUUID()} image={album.image} display={album.artist + " - " + album.album} />
+                    <Card key={getUUID()} image={album.image} display={album.artist + " - " + album.album} url={album.url}/>
                 ))}
             </section>
 

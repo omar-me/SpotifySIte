@@ -38,7 +38,8 @@ const containerStyle = {
 };
 
 const background = {
-  background: "linear-gradient(90deg, #060914, #3454D1, #060914)",
+  // background: "linear-gradient(90deg, #060914, #3454D1, #060914)",
+  background: "linear-gradient(90deg, #060914, #132155, #060914)",
   width: "100%",
   height: "100%",
   display: "flex",

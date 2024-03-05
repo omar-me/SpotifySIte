@@ -6,7 +6,8 @@ export default async function Navbar() {
     const session = await getServerSession();
     const navDivStyle = {
         minWidth: "100%",
-        backgroundColor: "#3454D1",
+        // backgroundColor: "#3454D1",
+        background: "linear-gradient(90deg, #060914, #132155, #060914)",
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
 

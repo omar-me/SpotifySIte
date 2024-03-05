@@ -7,7 +7,8 @@ import Dropdown from "./dropdown";
 const mainStyle = {
     display: "grid",
     gridTemplateRows: ".1fr .3fr 2fr",
-    backgroundColor: "#060914",
+    // backgroundColor: "#060914",
+    background: "linear-gradient(90deg, #060914, #132155, #060914)",
     minHeight: "100vh",
 }
 const h1 = {

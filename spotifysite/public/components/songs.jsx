@@ -9,7 +9,8 @@ const mainStyle = {
     display: "grid",
     gridTemplateRows: ".1fr .3fr 2fr",
     minHeight: "100vh",
-    backgroundColor: "#060914",
+    // backgroundColor: "#060914",
+    background: "linear-gradient(90deg, #060914, #132155, #060914)"
 }
 
 const h1 = {
@@ -50,7 +51,7 @@ export default function Songs({ topSongs }) {
 
             <section style={songsContainer}>
                 {topSongs.map((song) => (
-                    <Card key={getUUID()} image={song.album.images[0].url} display={song.name} />
+                    <Card key={getUUID()} image={song.album.images[0].url} display={song.name} url={song.external_urls.spotify} />
                 ))}
             </section>
         </main>

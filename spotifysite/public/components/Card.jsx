@@ -37,19 +37,34 @@ const eachSongStyle = {
     borderRadius: "10px",
     alignItems: "center",
     justifyContent: "center",
+    textDecoration: "none",
+    linkDecoration: "none",
 }
 
 const getUUID = () => { return crypto.randomUUID(); }
 
-export default function Card({ image, display }) {
+const newTab = (url) => {
+    const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
+    if (newWindow) newWindow.opener = null;
+}
+export default function Card({ image, display, url }) {
     return (
-        <div key={getUUID()} style={eachSongStyle}>
+        <a key={getUUID()} style={eachSongStyle} className="container" href={url} 
+        >
+            <style jsx>{`
+            .container:hover {
+                transform: scale(1.05);
+                transition: transform 0.5s;
+                cursor: pointer;
+            }
+        `}</style>
             <div style={imageContainer}>
                 <img style={imageStyle} src={image}></img>
             </div>
             <div style={songInfoContainer}>
                 <h2 style={songInfo}>{display}</h2>
             </div>
-        </div>
+        </a>
     )
+
 }
