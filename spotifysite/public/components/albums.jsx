@@ -31,7 +31,7 @@ const songsContainer = {
 
 const getUUID = () => { return crypto.randomUUID(); }
 
-export default function Albums({ topAlbums }) {
+export default function Albums({ topAlbums, timeRange }) {
     const { data: session, status } = useSession()
 
     useEffect(() => {
@@ -48,7 +48,7 @@ export default function Albums({ topAlbums }) {
     return (
         <main style={mainStyle}>
             <h1 style={h1}>{"Your Top " + topAlbums.length + " Albums"}</h1>
-            <Dropdown />
+            <Dropdown time={timeRange}/>
             <section style={songsContainer}>
                 {topAlbums && topAlbums.map((album, index) => (
                     <Card key={getUUID()} image={album.image} display={album.artist + " - " + album.album} url={album.url}/>

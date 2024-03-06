@@ -30,7 +30,7 @@ const songsContainer = {
 
 const getUUID = () => { return crypto.randomUUID(); }
 
-export default function Songs({ topSongs }) {
+export default function Songs({ topSongs, timeRange }) {
     const { data: session, status } = useSession()
 
     useEffect(() => {
@@ -47,7 +47,7 @@ export default function Songs({ topSongs }) {
         <main style={mainStyle}>
             <h1 style={h1}>{"Your Top " + topSongs.length + " Songs"}</h1>
 
-            <Dropdown />
+            <Dropdown time={timeRange}/>
 
             <section style={songsContainer}>
                 {topSongs.map((song) => (

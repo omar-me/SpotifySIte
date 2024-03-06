@@ -1,0 +1,54 @@
+import React from 'react';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+
+const eachSongStyle = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    margin: "5px",
+}
+
+export function SortableItem(props) {
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+    } = useSortable({ id: props.id });
+
+    const style = {
+        transform: CSS.Transform.toString(transform),
+        transition: transition || undefined,
+    };
+    
+    const album = props.album;
+    return (
+        <div ref={setNodeRef} style={style} {...attributes} {...listeners} className='item'>
+            <img className='image' src={album.image} />
+            <style jsx>{`
+                .item {
+                    display: flex;
+                    flexDirection: column;
+                    alignItems: center;
+                    margin: 0px;
+                }
+                .item:hover {
+                    {/* cursor: pointer; */}
+                    scale: 1.05;
+                }
+                .image {
+                    width: 150px;
+                    height: 150px;
+                }
+                @media (max-width: 700px) {
+                    .image {
+                        width: 85px;
+                        height: 85px;
+                    }
+                }
+            `}</style>
+        </div>
+    );
+}

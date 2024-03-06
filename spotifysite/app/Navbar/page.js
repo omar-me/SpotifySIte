@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { getServerSession, NextAuthOptions } from "next-auth";
-
+import "typeface-archivo-black"
+import styles from './page.module.css'
 export default async function Navbar() {
     const session = await getServerSession();
     const navDivStyle = {
@@ -39,7 +40,7 @@ export default async function Navbar() {
         <div style={navDivStyle}>
             <nav style={nav1}>
                 <ul style={navList}>
-                    <Link href="/" style={listStyle}>
+                    <Link href="/" className={styles.linkStyle}>
                         <text>Somafy</text>
                     </Link>
                 </ul>
@@ -50,16 +51,16 @@ export default async function Navbar() {
                     {/* <Link href="/site/Profile" style={listStyle}>
                     <text>Profile</text>
                 </Link> */}
-                    <Link href="/site/Songs" style={listStyle}>
+                    <Link href="/Songs" className={styles.linkStyle}>
                         <text>Songs</text>
                     </Link>
-                    <Link href="/site/Albums" style={listStyle}>
+                    <Link href="/Albums" className={styles.linkStyle}>
                         <text>Albums</text>
                     </Link>
-                    <Link href="/site/Artists" style={listStyle}>
+                    <Link href="/Artists" className={styles.linkStyle}>
                         <text>Artists</text>
                     </Link>
-                    <Link href="/site/Boardcreator" style={listStyle}>
+                    <Link href="/Boardcreator" className={styles.linkStyle}>
                         <text>Board Creator</text>
                     </Link>
 

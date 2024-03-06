@@ -1,7 +1,6 @@
 // 'use client';
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-
 const buttonContainer = {
   display: "flex",
   justifyContent: "center",
@@ -49,7 +48,7 @@ const background = {
 };
 
 const button = {
-  backgroundColor: "#1DB954",
+  backgroundColor: "black",
   padding: 15,
   borderRadius: 10,
   border: "none",
@@ -63,7 +62,7 @@ const buttonText = {
   fontFamily: "Archivo Black",
   fontWeight: "normal",
   color: "white",
-  fontSize: 20,
+  fontSize: 15,
   textDecorations: "none",
   linkDecoration: "none"
 }
@@ -77,7 +76,7 @@ export default function LandingPage() {
               <text style={titleStyle}>Welcome to Somafy!</text>
               <text style={subStyle}>Learn more about your listening habits!</text>
             </div>
-            <Link style={buttonContainer} href="/site/Songs">
+            <Link className="button" style={buttonContainer} href="/Songs">
               <button style={button}>
                 <text style={buttonText}>Login with Spotify</text>
               </button>

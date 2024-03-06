@@ -1,8 +1,27 @@
 'use client';
 import { useSession, signIn, signOut } from "next-auth/react"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import spotifyApi from "../spotify";
 import Dropdown from "./dropdown";
+import {
+    DndContext,
+    closestCenter,
+    MouseSensor,
+    TouchSensor,
+    DragOverlay,
+    useSensor,
+    useSensors,
+    DragStartEvent,
+    DragEndEvent,
+} from '@dnd-kit/core';
+import {
+    arrayMove,
+    SortableContext,
+    rectSortingStrategy,
+} from '@dnd-kit/sortable';
+
+import { SortableItem } from "./SortableItem";
+
 
 const mainStyle = {
     display: "grid",
@@ -34,8 +53,11 @@ const songsContainer = {
     // margin: "10px",
     // flexWrap: "wrap",
     display: "grid",
-    gridTemplateColumns: "repeat(6, min-content)",
-    gridTemplateRows: "repeat(6, min-content)",
+    //set max items in grid to 16
+    gridTemplateColumns: "repeat(4, 1fr)",
+    gridTemplateRows: "repeat(4, 1fr)",
+    justifyContent: "center",
+
 }
 
 const image = {
@@ -49,8 +71,20 @@ const eachSongStyle = {
     alignItems: "center",
 }
 
-export default function BoardCreator({ topAlbums }) {
+
+const getUUID = () => { return crypto.randomUUID(); }
+
+export default function BoardCreator({ topAlbums, timeRange }) {
     const { data: session, status } = useSession()
+    const idArray = topAlbums.map((album) => album.id);
+    const [items, setItems] = useState(idArray);
+
+    
+    topAlbums.sort((a, b) => {
+        return items.indexOf(a.id) - items.indexOf(b.id);
+    });
+
+    const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
     useEffect(() => {
         if (session) {
@@ -60,28 +94,46 @@ export default function BoardCreator({ topAlbums }) {
             spotifyApi.setAccessToken(session.user.accessToken)
         }
     }, [session]);
-
     // console.log("topAlbums: ")
     // console.log(topAlbums)
+    // console.log("idArray: ")
+    // console.log(idArray)
     return (
         <main style={mainStyle}>
-            <h1 style={h1}>{"Your Top " + topAlbums.length + " Albums"}</h1>
-            <Dropdown />
+            <h1 style={h1}>{"Board Creator"}</h1>
+            <Dropdown time={timeRange}/>
 
-            <div style={container}>
-                <div style={songsContainer}>
-                    {topAlbums && topAlbums.map((album) => (
-                        <div style={eachSongStyle}>
-                            <img style={image} src={album.image} />
-                            {/* <div style={songInfo}>
-                            <div>{album.album}</div>
-                            <div>{album.artists}</div>
-                        </div> */}
+            <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={handleDragEnd}
+            >
+                <SortableContext
+                    items={items}
+                    strategy={rectSortingStrategy}
+                >
+                    <div style={container}>
+                        <div style={songsContainer}>
+                            {topAlbums && topAlbums.map((album, index) => (
+                                <SortableItem key={idArray[index]} id={idArray[index]} album={album} />
+                            ))}
                         </div>
-                    ))}
-                </div>
-            </div>
+                    </div>
+                </SortableContext>
+            </DndContext>
 
-        </main>
+        </main >
     )
+    function handleDragEnd(event) {
+        const { active, over } = event;
+
+        if (over.id !== undefined && active.id !== undefined && active.id !== over.id) {
+            setItems((items) => {
+                const oldIndex = items.indexOf(active.id);
+                const newIndex = items.indexOf(over.id);
+
+                return arrayMove(items, oldIndex, newIndex);
+            });
+        }
+    }
 }

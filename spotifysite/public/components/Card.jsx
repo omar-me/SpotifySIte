@@ -20,18 +20,10 @@ const imageContainer = {
     alignItems: "center",
 }
 
-const imageStyle = {
-    width: "75px",
-    height: "75px",
-    margin: "5px",
-}
 
 const eachSongStyle = {
     display: "grid",
     gridTemplateColumns: "0.4fr 0.6fr",
-    margin: "10px",
-    width: "425px",
-    height: "100px",
     background: "black",
     boxShadow: "8px 8px 15px black",
     borderRadius: "10px",
@@ -51,19 +43,41 @@ export default function Card({ image, display, url }) {
     return (
         <a key={getUUID()} style={eachSongStyle} className="container" href={url} 
         >
+            <div style={imageContainer}>
+                <img className="imageStyle" src={image}></img>
+            </div>
+            <div style={songInfoContainer}>
+                <h2 style={songInfo}>{display}</h2>
+            </div>
             <style jsx>{`
+            .container {
+                width: 425px;
+                height: 100px;
+                margin: 10px;
+                }
             .container:hover {
                 transform: scale(1.05);
                 transition: transform 0.5s;
                 cursor: pointer;
             }
+            .imageStyle {
+                width: 75px;
+                height: 75px;
+                margin: 5px;
+            }
+            @media (max-width: 600px) {
+                .container {
+                    width: 75%;
+                    height: 70px;
+                    margin: 8px;
+                }
+                .imageStyle {
+                    width: 55px;
+                    height: 55px;
+                    margin: 5px;
+                }
+            }
         `}</style>
-            <div style={imageContainer}>
-                <img style={imageStyle} src={image}></img>
-            </div>
-            <div style={songInfoContainer}>
-                <h2 style={songInfo}>{display}</h2>
-            </div>
         </a>
     )
 

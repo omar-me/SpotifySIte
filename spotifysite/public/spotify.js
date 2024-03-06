@@ -78,11 +78,13 @@ export async function getTopAlbums(accessToken, limit = 50, offset = 0, timeRang
     // console.log(sortedResult)
     var finalResult = [];
 
-    for (var i = 0; i < albumLimit; i++) {
-        finalResult.push(sortedResult[i]);
+    for (var i = 0; i < Math.min(albumLimit,sortedResult.length); i++) {
+        finalResult.push({
+            id: (i + 1).toString(),
+            ...sortedResult[i]
+        });
     }
-    // console.log("finalResult: ")
-    // console.log(finalResult)
+    console.log("finalResult: ")
     return finalResult;
 }
 

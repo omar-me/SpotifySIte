@@ -33,6 +33,6 @@ export default async function App({ searchParams }) {
 
 
 	return (
-		<Songs topSongs={result} />
+		<Songs topSongs={result} timeRange={timeRange}/>
 	)
 }

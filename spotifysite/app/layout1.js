@@ -1,6 +1,6 @@
 import { SessionProvider } from 'next-auth/react'
 import { Providers } from '../providers'
-import Navbar from '@/app/site/Navbar/navbar.js'
+import Navbar from '@/public/components/navbar.js'
 import "typeface-archivo-black"
 // export const metadata = {
 //   title: 'Create Next App',
@@ -16,12 +16,6 @@ export default function RootLayout({ children }) {
     }
 
     return (
-        // <Providers>
-        <div>
-            <Navbar />
             {children}
-        </div>
-
-        // </Providers>
     )
 }

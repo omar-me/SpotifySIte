@@ -20,8 +20,8 @@ export default async function App({ searchParams }) {
     if (session && accessToken) {
         var limit = 50;
         var offset = 0;
-
-        result = await getTopAlbums(accessToken, limit, offset, timeRange, 50).then(
+        var albumLimit = 16;
+        result = await getTopAlbums(accessToken, limit, offset, timeRange, albumLimit).then(
             function (data) {
                 return data;
             },
@@ -33,6 +33,6 @@ export default async function App({ searchParams }) {
     }
 
     return (
-        <BoardCreator topAlbums={result} />
+        <BoardCreator topAlbums={result} timeRange={timeRange}/>
     )
 }
