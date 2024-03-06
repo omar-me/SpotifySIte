@@ -1,6 +1,7 @@
 'use client';
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useEffect, useState } from "react";
+import { EmptyItem } from "./emptyItem";
 import spotifyApi from "../spotify";
 import Dropdown from "./dropdown";
 import {
@@ -94,10 +95,6 @@ export default function BoardCreator({ topAlbums, timeRange }) {
             spotifyApi.setAccessToken(session.user.accessToken)
         }
     }, [session]);
-    // console.log("topAlbums: ")
-    // console.log(topAlbums)
-    // console.log("idArray: ")
-    // console.log(idArray)
     return (
         <main style={mainStyle}>
             <h1 style={h1}>{"Board Creator"}</h1>
@@ -115,7 +112,8 @@ export default function BoardCreator({ topAlbums, timeRange }) {
                     <div style={container}>
                         <div style={songsContainer}>
                             {topAlbums && topAlbums.map((album, index) => (
-                                <SortableItem key={idArray[index]} id={idArray[index]} album={album} />
+                                <SortableItem key={idArray[index]} id={idArray[index]} album={album} /> 
+
                             ))}
                         </div>
                     </div>
@@ -137,3 +135,5 @@ export default function BoardCreator({ topAlbums, timeRange }) {
         }
     }
 }
+
+//<EmptyItem key={idArray[index]} id={idArray[index]} album={album} />

@@ -43,8 +43,6 @@ export default function Albums({ topAlbums, timeRange }) {
         }
     }, [session]);
 
-    // console.log("topAlbums: ")
-    // console.log(topAlbums)
     return (
         <main style={mainStyle}>
             <h1 style={h1}>{"Your Top " + topAlbums.length + " Albums"}</h1>
