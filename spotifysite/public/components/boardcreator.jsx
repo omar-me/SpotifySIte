@@ -123,6 +123,7 @@ export default function BoardCreator({ topAlbums, timeRange }) {
     )
     function handleDragEnd(event) {
         const { active, over } = event;
+        console.log("active: " + active.id + " over: " + over.id);
 
         if (over.id !== undefined && active.id !== undefined && active.id !== over.id) {
             setItems((items) => {
