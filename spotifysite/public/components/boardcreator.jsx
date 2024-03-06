@@ -112,8 +112,7 @@ export default function BoardCreator({ topAlbums, timeRange }) {
                     <div style={container}>
                         <div style={songsContainer}>
                             {topAlbums && topAlbums.map((album, index) => (
-                                <SortableItem key={idArray[index]} id={idArray[index]} album={album} /> 
-
+                                <EmptyItem key={idArray[index]} id={idArray[index]} album={album} />
                             ))}
                         </div>
                     </div>
@@ -137,3 +136,4 @@ export default function BoardCreator({ topAlbums, timeRange }) {
 }
 
 //<EmptyItem key={idArray[index]} id={idArray[index]} album={album} />
+// <SortableItem key={idArray[index]} id={idArray[index]} album={album} />
