@@ -35,10 +35,14 @@ const spotifyApi = new SpotifyWebApi({
 export async function getTopSongs(accessToken, limit = 10, offset = 0, timeRange) {
     spotifyApi.setAccessToken(accessToken);
     const topSongs = await spotifyApi.getMyTopTracks({time_range: timeRange, limit: limit, offset: offset });
+    // console.log(topSongs.body.items)
     return topSongs.body.items;
 }
 
-export async function getTopAlbums(accessToken, limit = 50, offset = 0, timeRange) {
+export async function getTopAlbums(accessToken, limit = 50, offset = 0, timeRange, albumLimit = 10) {
+    // if(!albumLimit){
+    //     albumLimit = 10;
+    // }
     spotifyApi.setAccessToken(accessToken);
     const result = (await spotifyApi.getMyTopTracks({time_range: timeRange, limit: limit, offset: offset })).body.items;
 
@@ -58,6 +62,7 @@ export async function getTopAlbums(accessToken, limit = 50, offset = 0, timeRang
                 "album": result[i].album.name,
                 "image": result[i].album.images[0].url,
                 "artist": result[i].artists[0].name,
+                "url": result[i].external_urls.spotify,
                 "count": 0
             }
         }
@@ -69,19 +74,21 @@ export async function getTopAlbums(accessToken, limit = 50, offset = 0, timeRang
     sortedResult.sort(function (a, b) {
         return b.count - a.count;
     });
-
     var finalResult = [];
 
-    for (var i = 0; i < 10; i++) {
-        finalResult.push(sortedResult[i]);
+    for (var i = 0; i < Math.min(albumLimit,sortedResult.length); i++) {
+        finalResult.push({
+            id: (i + 1).toString(),
+            ...sortedResult[i]
+        });
     }
-
     return finalResult;
 }
 
 export async function getTopArtists(accessToken, limit = 10, offset = 0, timeRange) {
     spotifyApi.setAccessToken(accessToken);
     const topSongs = await spotifyApi.getMyTopArtists({time_range: timeRange, limit: limit, offset: offset});
+    // console.log(topSongs.body.items)
     return topSongs.body.items;
 }
 

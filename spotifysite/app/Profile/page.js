@@ -1,7 +1,7 @@
 
-import Profile from '../../../public/components/profile.js'
+import Profile from "@/public/components/profile.jsx";
 import { getServerSession, NextAuthOptions } from "next-auth";
-import { authOptions } from '../../api/auth/[...nextauth]/route.js'
+import { authOptions } from "@/app/api/auth/[...nextauth]/route.js";
 export default async function App() {
   const session = await getServerSession(authOptions);
   var accessToken = null;

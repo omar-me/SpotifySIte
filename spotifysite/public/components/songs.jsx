@@ -3,15 +3,22 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import { useEffect, useState } from "react";
 import spotifyApi from "../spotify";
 import Dropdown from "./dropdown";
+import Card from "./Card";
 
 const mainStyle = {
-    display: "flex",
-    justifyContent: "center",
-    flexDirection: "column",
+    display: "grid",
+    gridTemplateRows: ".1fr .3fr 2fr",
+    minHeight: "100vh",
+    // backgroundColor: "#060914",
+    background: "linear-gradient(90deg, #060914, #132155, #060914)"
 }
+
 const h1 = {
     display: "flex",
     justifyContent: "center",
+    fontFamily: "Archivo Black",
+    fontWeight: "normal",
+    color: "white"
 }
 
 const songsContainer = {
@@ -21,27 +28,9 @@ const songsContainer = {
     margin: "10px"
 }
 
-const songInfo = {
-    display: "flex",
-    justifyContent: "center",
-    margin: "10px",
-    fontSize: "15px"
-}
+const getUUID = () => { return crypto.randomUUID(); }
 
-const image = {
-    width: "100px",
-    height: "100px",
-    margin: "10px"
-}
-
-const eachSongStyle = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    margin: "10px"
-}
-
-export default function Songs({ topSongs }) {
+export default function Songs({ topSongs, timeRange }) {
     const { data: session, status } = useSession()
 
     useEffect(() => {
@@ -58,17 +47,13 @@ export default function Songs({ topSongs }) {
         <main style={mainStyle}>
             <h1 style={h1}>{"Your Top " + topSongs.length + " Songs"}</h1>
 
-            <Dropdown />
+            <Dropdown time={timeRange}/>
 
             <section style={songsContainer}>
-                {topSongs && topSongs.map((song, index) => (
-                    <div key={index} style={eachSongStyle}>
-                        <img style={image} src={song.album.images[0].url}></img>
-                        <h2 style={songInfo}>{song.artists[0].name + " - " + song.name}</h2>
-                    </div>
+                {topSongs.map((song) => (
+                    <Card key={getUUID()} image={song.album.images[0].url} display={song.name} url={song.external_urls.spotify} />
                 ))}
             </section>
-
         </main>
     )
 }
