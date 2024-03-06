@@ -1,7 +1,8 @@
 
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import BoardCreator from "@/public/components/boardcreator.jsx";
+// import BoardCreator from "@/public/components/boardcreator.jsx";
+import BoardCreator from "@/public/components/dndtest";
 import { getTopAlbums } from "@/public/spotify.js";
 
 export const dynamic = "force-dynamic";
