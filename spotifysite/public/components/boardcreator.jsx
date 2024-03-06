@@ -77,7 +77,7 @@ const getUUID = () => { return crypto.randomUUID(); }
 
 export default function BoardCreator({ topAlbums, timeRange }) {
     const { data: session, status } = useSession()
-    const idArray = topAlbums.map((album) => album.id);
+    const idArray = topAlbums.map((album) => album.id.toString());
     const [items, setItems] = useState(idArray);
 
     
