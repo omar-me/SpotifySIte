@@ -77,7 +77,17 @@ const getUUID = () => { return crypto.randomUUID(); }
 
 export default function BoardCreator({ topAlbums, timeRange }) {
     const { data: session, status } = useSession()
-    const idArray = topAlbums.map((album) => album.id.toString());
+    const allArray = topAlbums.map((album) =>
+        
+        ({
+            id: album.id,
+            image: album.image,
+            artist: album.artist,
+        })
+    );
+    const idArray = allArray.map((album) => album.id);
+    console.log(idArray);
+
     const [items, setItems] = useState(idArray);
 
     
@@ -111,19 +121,20 @@ export default function BoardCreator({ topAlbums, timeRange }) {
                 >
                     <div style={container}>
                         <div style={songsContainer}>
-                            {topAlbums && topAlbums.map((album, index) => (
-                                <EmptyItem key={idArray[index]} id={idArray[index]} album={album} />
-                            ))}
+                            {items && items.map((album, index) => {
+                                return (
+                                    {/* <EmptyItem key={album} id={album} /> */},
+                                    <SortableItem key={album} id={album} album={allArray[items.indexOf(album)]} />
+                                )
+                            })}
                         </div>
                     </div>
                 </SortableContext>
             </DndContext>
-
-        </main >
+        </main>
     )
     function handleDragEnd(event) {
         const { active, over } = event;
-        console.log("active: " + active.id + " over: " + over.id);
 
         if (over.id !== undefined && active.id !== undefined && active.id !== over.id) {
             setItems((items) => {
@@ -135,6 +146,3 @@ export default function BoardCreator({ topAlbums, timeRange }) {
         }
     }
 }
-
-//<EmptyItem key={idArray[index]} id={idArray[index]} album={album} />
-// <SortableItem key={idArray[index]} id={idArray[index]} album={album} />
