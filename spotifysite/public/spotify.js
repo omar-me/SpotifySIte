@@ -74,8 +74,6 @@ export async function getTopAlbums(accessToken, limit = 50, offset = 0, timeRang
     sortedResult.sort(function (a, b) {
         return b.count - a.count;
     });
-    // console.log("sortedResult: ")
-    // console.log(sortedResult)
     var finalResult = [];
 
     for (var i = 0; i < Math.min(albumLimit,sortedResult.length); i++) {
@@ -84,7 +82,6 @@ export async function getTopAlbums(accessToken, limit = 50, offset = 0, timeRang
             ...sortedResult[i]
         });
     }
-    console.log("finalResult: ")
     return finalResult;
 }
 
