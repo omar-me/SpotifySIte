@@ -58,6 +58,7 @@ const songsContainer = {
     gridTemplateColumns: "repeat(4, 1fr)",
     gridTemplateRows: "repeat(4, 1fr)",
     justifyContent: "center",
+    border: "1px solid black",
 
 }
 
@@ -77,13 +78,9 @@ const getUUID = () => { return crypto.randomUUID(); }
 
 export default function BoardCreator({ topAlbums, timeRange }) {
     const { data: session, status } = useSession()
-    const idArray = topAlbums.map((album) => album.id);
-    const [items, setItems] = useState(idArray);
 
-    
-    topAlbums.sort((a, b) => {
-        return items.indexOf(a.id) - items.indexOf(b.id);
-    });
+    const [items, setItems] = useState(Array.from({ length: 16 }, (_, i) => (1+ i).toString()));
+
 
     const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
@@ -95,10 +92,10 @@ export default function BoardCreator({ topAlbums, timeRange }) {
             spotifyApi.setAccessToken(session.user.accessToken)
         }
     }, [session]);
+
     return (
         <main style={mainStyle}>
             <h1 style={h1}>{"Board Creator"}</h1>
-            <Dropdown time={timeRange}/>
 
             <DndContext
                 sensors={sensors}
@@ -111,16 +108,16 @@ export default function BoardCreator({ topAlbums, timeRange }) {
                 >
                     <div style={container}>
                         <div style={songsContainer}>
-                            {topAlbums && topAlbums.map((album, index) => (
-                                <SortableItem key={idArray[index]} id={idArray[index]} album={album} /> 
-
-                            ))}
+                            {items && items.map((id) => {
+                                return (
+                                    <EmptyItem key={id} id={id} />
+                                )
+                            })}
                         </div>
                     </div>
                 </SortableContext>
             </DndContext>
-
-        </main >
+        </main>
     )
     function handleDragEnd(event) {
         const { active, over } = event;
@@ -135,5 +132,3 @@ export default function BoardCreator({ topAlbums, timeRange }) {
         }
     }
 }
-
-//<EmptyItem key={idArray[index]} id={idArray[index]} album={album} />
