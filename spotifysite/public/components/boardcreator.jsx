@@ -58,6 +58,7 @@ const songsContainer = {
     gridTemplateColumns: "repeat(4, 1fr)",
     gridTemplateRows: "repeat(4, 1fr)",
     justifyContent: "center",
+    border: "1px solid black",
 
 }
 
@@ -77,23 +78,9 @@ const getUUID = () => { return crypto.randomUUID(); }
 
 export default function BoardCreator({ topAlbums, timeRange }) {
     const { data: session, status } = useSession()
-    const allArray = topAlbums.map((album) =>
-        
-        ({
-            id: album.id,
-            image: album.image,
-            artist: album.artist,
-        })
-    );
-    const idArray = allArray.map((album) => album.id);
-    console.log(idArray);
 
-    const [items, setItems] = useState(idArray);
+    const [items, setItems] = useState(Array.from({ length: 16 }, (_, i) => (1+ i).toString()));
 
-    
-    topAlbums.sort((a, b) => {
-        return items.indexOf(a.id) - items.indexOf(b.id);
-    });
 
     const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
@@ -105,10 +92,10 @@ export default function BoardCreator({ topAlbums, timeRange }) {
             spotifyApi.setAccessToken(session.user.accessToken)
         }
     }, [session]);
+
     return (
         <main style={mainStyle}>
             <h1 style={h1}>{"Board Creator"}</h1>
-            <Dropdown time={timeRange}/>
 
             <DndContext
                 sensors={sensors}
@@ -121,10 +108,9 @@ export default function BoardCreator({ topAlbums, timeRange }) {
                 >
                     <div style={container}>
                         <div style={songsContainer}>
-                            {items && items.map((album, index) => {
+                            {items && items.map((id) => {
                                 return (
-                                    {/* <EmptyItem key={album} id={album} /> */},
-                                    <SortableItem key={album} id={album} album={allArray[items.indexOf(album)]} />
+                                    <EmptyItem key={id} id={id} />
                                 )
                             })}
                         </div>
