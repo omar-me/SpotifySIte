@@ -2,12 +2,6 @@ import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-const eachSongStyle = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    margin: "5px",
-}
 
 export function SortableItem(props) {
     const {
@@ -23,7 +17,7 @@ export function SortableItem(props) {
         transition: transition || undefined,
     };
     
-    const album = props.album;
+    const album = props.album.data;
     return (
         <div ref={setNodeRef} style={style} {...attributes} {...listeners} className='item'>
             <img className='image' src={album.image} />

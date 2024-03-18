@@ -31,6 +31,6 @@ export default async function App({ searchParams }) {
 	}
 
 	return (
-		<Artists topArtists={result} />
+		<Artists topArtists={result} timeRange={timeRange}/>
 	)
 }

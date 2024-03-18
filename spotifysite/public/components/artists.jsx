@@ -9,7 +9,6 @@ const mainStyle = {
     display: "grid",
     gridTemplateRows: ".1fr .3fr 2fr",
     minHeight: "100vh",
-    // backgroundColor: "#060914",
     background: "linear-gradient(90deg, #060914, #132155, #060914)"
     
 }
@@ -46,7 +45,7 @@ export default function Artists({ topArtists, timeRange }) {
 
     return (
         <main style={mainStyle}>
-            <h1 style={h1}>{"Your Top " + topArtists.length + " Artists"}</h1>
+            <h1 style={h1}>{"Your Top Artists"}</h1>
 
             <Dropdown time={timeRange}/>
 

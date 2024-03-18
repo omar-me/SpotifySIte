@@ -1,0 +1,12 @@
+
+.linkStyle:hover {
+    scale: 1.1;
+}
+
+@media screen and (max-width: 600px){
+    .linkStyle {
+        margin: 10px 5px 10px 5px;
+        font-size: 0.8rem;
+    }
+    
+}
