@@ -14,6 +14,7 @@ import {
     useSensors,
     DragStartEvent,
     DragEndEvent,
+    PointerSensor
 } from '@dnd-kit/core';
 import {
     arrayMove,
@@ -30,6 +31,7 @@ const mainStyle = {
     // backgroundColor: "#060914",
     background: "linear-gradient(90deg, #060914, #132155, #060914)",
     minHeight: "100vh",
+    overflow: "hidden",
 }
 const h1 = {
     display: "flex",
@@ -59,7 +61,7 @@ const songsContainer = {
     gridTemplateRows: "repeat(4, 1fr)",
     justifyContent: "center",
     border: "1px solid black",
-
+    background: "black",
 }
 
 const image = {
@@ -76,13 +78,25 @@ const eachSongStyle = {
 
 const getUUID = () => { return crypto.randomUUID(); }
 
-export default function BoardCreator({ topAlbums, timeRange }) {
+
+export default function BoardCreator({ albumData, timeRange }) {
     const { data: session, status } = useSession()
+    //Array.from({ length: 16 }, (_, i) => (1+ i).toString())
+    const [items, setItems] = useState(Array.from({ length: 16 }, (_, i) => ({ id: (1 + i).toString() })));
+    const [selectedAlbums, setSelectedAlbums] = useState([]);
+    const [availableAlbums, setAvailableAlbums] = useState(albumData);
 
-    const [items, setItems] = useState(Array.from({ length: 16 }, (_, i) => (1+ i).toString()));
 
-
-    const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+    const sensors = useSensors(
+        useSensor(PointerSensor,{
+            activationConstraint: {
+                distance: 8,
+            },
+        
+        }),
+        useSensor(TouchSensor),
+        useSensor(MouseSensor)
+      )
 
     useEffect(() => {
         if (session) {
@@ -93,8 +107,25 @@ export default function BoardCreator({ topAlbums, timeRange }) {
         }
     }, [session]);
 
+    // //replace with actual data
+    // items.forEach((e) => {
+    //     if(selectedAlbums.find((album) => album.id == e)){
+    //         const index = availableAlbums.findIndex((album) => album.id == e);
+    //         availableAlbums.splice(index, 1);
+    //     }
+    // })
+    selectedAlbums.forEach((e) => {
+        // console.log("selected albums: ");
+        // console.log(e);
+    })
+    // console.log("availableAlbums: ");
+    // console.log(availableAlbums);
+    // console.log("selectedAlbums: ");
+    // console.log(selectedAlbums);
+    console.log("items: ");
+    console.log(items);
     return (
-        <main style={mainStyle}>
+        <main style={mainStyle} >
             <h1 style={h1}>{"Board Creator"}</h1>
 
             <DndContext
@@ -108,10 +139,31 @@ export default function BoardCreator({ topAlbums, timeRange }) {
                 >
                     <div style={container}>
                         <div style={songsContainer}>
-                            {items && items.map((id) => {
-                                return (
-                                    <EmptyItem key={id} id={id} />
-                                )
+                            {selectedAlbums && items && items.map((data) => {
+                                const album = selectedAlbums.find((e) => e.id == data.id);
+                                if(album !== undefined){
+                                    return (
+                                        <SortableItem 
+                                        key={data.id} 
+                                        id={data.id} 
+                                        album={album} 
+                                        availableAlbums={availableAlbums} 
+                                        setAvailableAlbums={setAvailableAlbums}
+                                        setSelectedAlbums={setSelectedAlbums} 
+                                        selectedAlbums={selectedAlbums} />
+                                    )
+                                }
+                                else{
+                                    return (
+                                        <EmptyItem 
+                                        key={data.id} 
+                                        id={data.id} 
+                                        availableAlbums={availableAlbums} 
+                                        setAvailableAlbums={setAvailableAlbums}
+                                        setSelectedAlbums={setSelectedAlbums} 
+                                        selectedAlbums={selectedAlbums} />
+                                    )
+                                }
                             })}
                         </div>
                     </div>
@@ -121,14 +173,36 @@ export default function BoardCreator({ topAlbums, timeRange }) {
     )
     function handleDragEnd(event) {
         const { active, over } = event;
-
-        if (over.id !== undefined && active.id !== undefined && active.id !== over.id) {
+        console.log("active.id: ", active.id);
+        console.log("over.id: ", over.id);
+        const ov = over && over.id;
+        const act = active && active.id;
+        if (ov && act && active.id !== over.id) {
             setItems((items) => {
-                const oldIndex = items.indexOf(active.id);
-                const newIndex = items.indexOf(over.id);
-
+                const oldIndex = items.findIndex((item) => item.id === active.id);
+                const newIndex = items.findIndex((item) => item.id === over.id);
+                console.log("oldIndex: ", oldIndex);
+                console.log("newIndex: ", newIndex);
                 return arrayMove(items, oldIndex, newIndex);
             });
+            console.log(items);
+
+            // setSelectedAlbums((selectedAlbums) => {
+            //     const oldIndex = selectedAlbums.findIndex((album) => album.id == active.id);
+            //     const newIndex = selectedAlbums.findIndex((album) => album.id == over.id);
+            //     console.log("oldIndex: ", oldIndex);
+            //     console.log("newIndex: ", newIndex);
+            //     console.log("old selectedAlbums: ");
+            //     console.log(selectedAlbums);
+            //     //swap .id of active and over
+            //     const temp = selectedAlbums[oldIndex].id;
+            //     selectedAlbums[oldIndex].id = selectedAlbums[newIndex].id;
+            //     selectedAlbums[newIndex].id = temp;
+
+            //     return arrayMove(selectedAlbums, oldIndex, newIndex);
+            // });
+            // console.log("selectedAlbums: ");
+            // console.log(selectedAlbums);
         }
     }
 }

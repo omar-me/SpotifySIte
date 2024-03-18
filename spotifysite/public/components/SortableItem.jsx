@@ -23,7 +23,7 @@ export function SortableItem(props) {
         transition: transition || undefined,
     };
     
-    const album = props.album;
+    const album = props.album.data;
     return (
         <div ref={setNodeRef} style={style} {...attributes} {...listeners} className='item'>
             <img className='image' src={album.image} />

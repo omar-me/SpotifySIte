@@ -1,10 +1,19 @@
 import Link from 'next/link'
 import { useSession, signIn, signOut } from "next-auth/react"
 import { getServerSession, NextAuthOptions } from "next-auth";
-import "typeface-archivo-black"
-import styles from './page.module.css'
+import '../globals.css'
+
 export default async function Navbar() {
     const session = await getServerSession();
+
+    const linkStyle ={
+        color: "white",
+        textDecoration: "none",
+        margin: "10px 15px 10px 15px",
+        fontFamily: "Archivo Black",
+        fontWeight: "normal",
+        fontSize: "1rem",
+    }
     const navDivStyle = {
         minWidth: "100%",
         // backgroundColor: "#3454D1",
@@ -40,7 +49,7 @@ export default async function Navbar() {
         <div style={navDivStyle}>
             <nav style={nav1}>
                 <ul style={navList}>
-                    <Link href="/" className={styles.linkStyle}>
+                    <Link href="/" className={"linkStyle"}>
                         <text>Somafy</text>
                     </Link>
                 </ul>
@@ -51,16 +60,16 @@ export default async function Navbar() {
                     {/* <Link href="/site/Profile" style={listStyle}>
                     <text>Profile</text>
                 </Link> */}
-                    <Link href="/Songs" className={styles.linkStyle}>
+                    <Link href="/Songs" className={"linkStyle"} >
                         <text>Songs</text>
                     </Link>
-                    <Link href="/Albums" className={styles.linkStyle}>
+                    <Link href="/Albums" className={"linkStyle"}>
                         <text>Albums</text>
                     </Link>
-                    <Link href="/Artists" className={styles.linkStyle}>
+                    <Link href="/Artists" className={"linkStyle"}>
                         <text>Artists</text>
                     </Link>
-                    <Link href="/Boardcreator" className={styles.linkStyle}>
+                    <Link href="/Boardcreator" className={"linkStyle"}>
                         <text>Board Creator</text>
                     </Link>
 
