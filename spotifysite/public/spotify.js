@@ -95,6 +95,7 @@ export async function uniqueAlbums(accessToken, limit = 50, offset = 0, timeRang
     spotifyApi.setAccessToken(accessToken);
     const result = (await spotifyApi.getMyTopTracks({time_range: timeRange, limit: limit, offset: offset })).body.items;
     var resultObject = {};
+    var id = 1;
     for (var i = 0; i < result.length; i++) {
         if (!(result[i].album.name in resultObject)) {
             resultObject[result[i].album.name] = {
@@ -102,8 +103,10 @@ export async function uniqueAlbums(accessToken, limit = 50, offset = 0, timeRang
                 "image": result[i].album.images[0].url,
                 "artist": result[i].artists[0].name,
                 "url": result[i].external_urls.spotify,
-                "count": 0
+                "count": 0,
+                id: id.toString()
             }
+            id++;
         }
     }
 

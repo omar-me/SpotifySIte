@@ -56,19 +56,22 @@ export function EmptyItem({id, availableAlbums, setAvailableAlbums, setSelectedA
         transform: CSS.Transform.toString(transform),
         transition: transition || undefined,
     };
-    const addToState = (e, id) => {
+    const addToState = (e, albumID, id) => {
         const formated = {
             data: e,
-            id: id
+            gridID: id
         }
         setSelectedAlbums([...selectedAlbums, formated]);
         // console.log("availableAlbums", availableAlbums);
         // console.log("id", id);
         // console.log("e.id", e.id);
-        const newAvailableAlbums = availableAlbums.filter((album) => album.id !== e.id);
+        const newAvailableAlbums = availableAlbums.filter((album) => {
+            if(album.id === undefined || album.id !== albumID){
+                return album;
+            }});
+            
         // console.log("newAvailableAlbums", newAvailableAlbums);
         setAvailableAlbums(newAvailableAlbums);
-        // console.log("availableAlbums", availableAlbums);
         setToggleMenu(false);
     }
 
@@ -114,7 +117,7 @@ export function EmptyItem({id, availableAlbums, setAvailableAlbums, setSelectedA
                             <div className='example' style={cardsContainer}>
                                 {availableAlbums && availableAlbums.map((e, index) => {
                                     return (
-                                        <div onClick={()=>addToState(e, id)}>
+                                        <div onClick={()=>addToState(e, e.id, id)}>
                                             <Card key={index} display={e.artist + " - " + e.album} image={e.image} />
                                         </div>)
                                 })}
