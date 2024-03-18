@@ -45,7 +45,7 @@ export default function Albums({ topAlbums, timeRange }) {
 
     return (
         <main style={mainStyle}>
-            <h1 style={h1}>{"Your Top " + topAlbums.length + " Albums"}</h1>
+            <h1 style={h1}>{"Your Top Albums"}</h1>
             <Dropdown time={timeRange}/>
             <section style={songsContainer}>
                 {topAlbums && topAlbums.map((album, index) => (

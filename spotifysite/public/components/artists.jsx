@@ -46,7 +46,7 @@ export default function Artists({ topArtists, timeRange }) {
 
     return (
         <main style={mainStyle}>
-            <h1 style={h1}>{"Your Top " + topArtists.length + " Artists"}</h1>
+            <h1 style={h1}>{"Your Top Artists"}</h1>
 
             <Dropdown time={timeRange}/>
 

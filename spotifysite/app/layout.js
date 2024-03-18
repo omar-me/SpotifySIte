@@ -12,7 +12,8 @@ import {Archivo_Black} from 'next/font/google'
 const archivoBlack = Archivo_Black({
   display: 'swap',
   subsets: ['latin'],
-  weight: '400'
+  weight: '400',
+  adjustFontFallback: false,
 })
 
 export default function RootLayout({ children }) {

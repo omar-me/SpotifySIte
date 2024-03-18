@@ -35,7 +35,6 @@ const spotifyApi = new SpotifyWebApi({
 export async function getTopSongs(accessToken, limit = 10, offset = 0, timeRange) {
     spotifyApi.setAccessToken(accessToken);
     const topSongs = await spotifyApi.getMyTopTracks({time_range: timeRange, limit: limit, offset: offset });
-    // console.log(topSongs.body.items)
     return topSongs.body.items;
 }
 

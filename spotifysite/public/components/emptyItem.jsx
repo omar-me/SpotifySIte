@@ -78,7 +78,7 @@ export function EmptyItem({id, availableAlbums, setAvailableAlbums, setSelectedA
     return (
         <>
             <div ref={setNodeRef} style={style} {...attributes} {...listeners} className='item' onClick={() => setToggleMenu(true)}>
-                <p className='text'>{id}</p>
+                <h1 className='text'>+</h1>
                 <style jsx>{`
                 .item {
                     display: flex;
@@ -122,15 +122,13 @@ export function EmptyItem({id, availableAlbums, setAvailableAlbums, setSelectedA
 
                         </div>
                         <style jsx>{`
-                            /* Hide scrollbar for Chrome, Safari and Opera */
                             .example::-webkit-scrollbar {
                             display: none;
                             }
 
-                            /* Hide scrollbar for IE, Edge and Firefox */
                             .example {
-                                -ms-overflow-style: none;  /* IE and Edge */
-                                scrollbar-width: none;  /* Firefox */
+                                -ms-overflow-style: none;  
+                                scrollbar-width: none;  
                             }
                             .buttonStyle:hover {
                                 scale: 1.05;

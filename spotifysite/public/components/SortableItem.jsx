@@ -2,12 +2,6 @@ import React from 'react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-const eachSongStyle = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    margin: "5px",
-}
 
 export function SortableItem(props) {
     const {
