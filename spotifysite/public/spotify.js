@@ -39,17 +39,8 @@ export async function getTopSongs(accessToken, limit = 10, offset = 0, timeRange
 }
 
 export async function getTopAlbums(accessToken, limit = 50, offset = 0, timeRange, albumLimit = 10) {
-    // if(!albumLimit){
-    //     albumLimit = 10;
-    // }
     spotifyApi.setAccessToken(accessToken);
     const result = (await spotifyApi.getMyTopTracks({time_range: timeRange, limit: limit, offset: offset })).body.items;
-
-    //print out the top 10 song's album name
-    // console.log("result: ")
-    // for (var i = 0; i < result.length; i++) {
-    //     console.log(result[i].album.name);
-    // }   
 
     var resultObject = {};
     for (var i = 0; i < result.length; i++) {
@@ -87,7 +78,6 @@ export async function getTopAlbums(accessToken, limit = 50, offset = 0, timeRang
 export async function getTopArtists(accessToken, limit = 10, offset = 0, timeRange) {
     spotifyApi.setAccessToken(accessToken);
     const topSongs = await spotifyApi.getMyTopArtists({time_range: timeRange, limit: limit, offset: offset});
-    // console.log(topSongs.body.items)
     return topSongs.body.items;
 }
 

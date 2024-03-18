@@ -39,7 +39,6 @@ export default function Profile({ profile }) {
 
     const profileStyle = {
         display: "flex",
-        // justifyContent: "center",
         flexDirection: "column",
         alignItems: "center",
         margin: "10px"

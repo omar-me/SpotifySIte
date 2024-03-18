@@ -27,12 +27,6 @@ const inStyle1 = {
   appearance: "none",
   height: "0px",
   margin: "0px",
-  // borderRadius: "5px 0px 0px 5px",
-  // color: "black",
-  // height: "1em",
-  // width: "2em",
-  // margin: "0px",
-
 }
 
 const inStyle2 = {

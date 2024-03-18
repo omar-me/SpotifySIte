@@ -62,21 +62,16 @@ export function EmptyItem({id, availableAlbums, setAvailableAlbums, setSelectedA
             gridID: id
         }
         setSelectedAlbums([...selectedAlbums, formated]);
-        // console.log("availableAlbums", availableAlbums);
-        // console.log("id", id);
-        // console.log("e.id", e.id);
         const newAvailableAlbums = availableAlbums.filter((album) => {
             if(album.id === undefined || album.id !== albumID){
                 return album;
             }});
-            
-        // console.log("newAvailableAlbums", newAvailableAlbums);
+
         setAvailableAlbums(newAvailableAlbums);
         setToggleMenu(false);
     }
 
     const fakeData = Array.from({ length: 10 }, (_, i) => (i).toString());
-    // console.log("availableAlbums", availableAlbums);
 
     return (
         <>

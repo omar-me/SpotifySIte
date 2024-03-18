@@ -10,7 +10,6 @@ const mainStyle = {
     display: "grid",
     gridTemplateRows: ".1fr .3fr 2fr",
     minHeight: "100vh",
-    // backgroundColor: "#060914",
     background: "linear-gradient(90deg, #060914, #132155, #060914)"
 }
 
